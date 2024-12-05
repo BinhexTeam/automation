@@ -140,12 +140,17 @@ class AutomationConfiguration(models.Model):
         data = self.env["automation.record"].read_group(
             [("configuration_id", "in", self.ids), ("is_test", "=", False)],
             [],
-            ["configuration_id", "state"],
+            ["configuration_id", "state", "is_placeholder"],
             lazy=False,
         )
         mapped_data = defaultdict(lambda: {})
         for d in data:
-            mapped_data[d["configuration_id"][0]][d["state"]] = d["__count"]
+            config_id = d["configuration_id"][0]
+            state = d["state"]
+            count = d["__count"]
+            is_placeholder = d.get("is_placeholder", False)
+            if not is_placeholder:
+                mapped_data[config_id][state] = count
         for record in self:
             record.record_done_count = mapped_data[record.id].get("done", 0)
             record.record_run_count = mapped_data[record.id].get("periodic", 0)
@@ -156,10 +161,16 @@ class AutomationConfiguration(models.Model):
         data = self.env["automation.record"].read_group(
             [("configuration_id", "in", self.ids), ("is_test", "=", True)],
             [],
-            ["configuration_id"],
+            ["configuration_id", "is_placeholder"],
             lazy=False,
         )
-        mapped_data = {d["configuration_id"][0]: d["__count"] for d in data}
+        mapped_data = defaultdict(lambda: {})
+        for d in data:
+            config_id = d["configuration_id"][0]
+            count = d["__count"]
+            is_placeholder = d.get("is_placeholder", False)
+            if not is_placeholder:
+                mapped_data[config_id] = count
         for record in self:
             record.record_test_count = mapped_data.get(record.id, 0)
 
