@@ -7,10 +7,6 @@ from odoo import api, fields, models
 
 
 class AutomationTag(models.Model):
-<<<<<<< HEAD
-=======
-
->>>>>>> [ADD] automation_oca
     _name = "automation.tag"
     _description = "Automation Tag"
 

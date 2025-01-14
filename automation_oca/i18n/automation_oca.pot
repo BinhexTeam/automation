@@ -14,19 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: automation_oca
-#: model:ir.model.fields,help:automation_oca.field_automation_configuration__domain
-msgid ""
-"\n"
-"        Filter to apply\n"
-"        Following special variable can be used in filter :\n"
-"         * datetime\n"
-"         * dateutil\n"
-"         * time\n"
-"         * user\n"
-"         * ref "
-msgstr ""
-
-#. module: automation_oca
 #. odoo-python
 #: code:addons/automation_oca/models/automation_configuration_step.py:0
 #, python-format
@@ -388,7 +375,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:automation_oca.selection__automation_configuration_step__activity_date_deadline_range_type__days
 #: model:ir.model.fields.selection,name:automation_oca.selection__automation_configuration_step__expiry_interval_type__days
 #: model:ir.model.fields.selection,name:automation_oca.selection__automation_configuration_step__trigger_interval_type__days
-msgid "Day(s)"
+msgid "Days"
 msgstr ""
 
 #. module: automation_oca
@@ -539,20 +526,10 @@ msgid "Filter Domain"
 msgstr ""
 
 #. module: automation_oca
+#: model:ir.model.fields,help:automation_oca.field_automation_configuration__domain
+#: model:ir.model.fields,help:automation_oca.field_automation_configuration__editable_domain
 #: model:ir.model.fields,help:automation_oca.field_automation_filter__domain
 msgid "Filter to apply"
-msgstr ""
-
-#. module: automation_oca
-#: model:ir.model.fields,help:automation_oca.field_automation_configuration__editable_domain
-msgid ""
-"Filter to apply\n"
-"        Following special variable can be used in filter :\n"
-"         * datetime\n"
-"         * dateutil\n"
-"         * time\n"
-"         * user\n"
-"         * ref "
 msgstr ""
 
 #. module: automation_oca
@@ -614,7 +591,7 @@ msgstr ""
 #. module: automation_oca
 #: model:ir.model.fields.selection,name:automation_oca.selection__automation_configuration_step__expiry_interval_type__hours
 #: model:ir.model.fields.selection,name:automation_oca.selection__automation_configuration_step__trigger_interval_type__hours
-msgid "Hour(s)"
+msgid "Hours"
 msgstr ""
 
 #. module: automation_oca
@@ -832,7 +809,7 @@ msgstr ""
 
 #. module: automation_oca
 #: model:ir.model.fields.selection,name:automation_oca.selection__automation_configuration_step__activity_date_deadline_range_type__months
-msgid "Month(s)"
+msgid "Months"
 msgstr ""
 
 #. module: automation_oca
@@ -1328,7 +1305,7 @@ msgstr ""
 
 #. module: automation_oca
 #: model:ir.model.fields.selection,name:automation_oca.selection__automation_configuration_step__activity_date_deadline_range_type__weeks
-msgid "Week(s)"
+msgid "Weeks"
 msgstr ""
 
 #. module: automation_oca

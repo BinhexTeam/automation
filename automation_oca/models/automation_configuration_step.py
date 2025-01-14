@@ -14,10 +14,6 @@ from odoo.tools.safe_eval import safe_eval
 
 
 class AutomationConfigurationStep(models.Model):
-<<<<<<< HEAD
-=======
-
->>>>>>> [ADD] automation_oca
     _name = "automation.configuration.step"
     _description = "Automation Steps"
     _order = "trigger_interval_hours ASC"
@@ -51,21 +47,13 @@ class AutomationConfigurationStep(models.Model):
     )
     trigger_interval = fields.Integer()
     trigger_interval_type = fields.Selection(
-<<<<<<< HEAD
-        [("hours", "Hour(s)"), ("days", "Day(s)")], required=True, default="hours"
-=======
         [("hours", "Hours"), ("days", "Days")], required=True, default="hours"
->>>>>>> [ADD] automation_oca
     )
     allow_expiry = fields.Boolean(compute="_compute_allow_expiry")
     expiry = fields.Boolean(compute="_compute_expiry", store=True, readonly=False)
     expiry_interval = fields.Integer()
     expiry_interval_type = fields.Selection(
-<<<<<<< HEAD
-        [("hours", "Hour(s)"), ("days", "Day(s)")], required=True, default="hours"
-=======
         [("hours", "Hours"), ("days", "Days")], required=True, default="hours"
->>>>>>> [ADD] automation_oca
     )
     trigger_type = fields.Selection(
         selection="_trigger_type_selection",
@@ -105,11 +93,7 @@ class AutomationConfigurationStep(models.Model):
         store=True,
     )
     activity_date_deadline_range_type = fields.Selection(
-<<<<<<< HEAD
-        [("days", "Day(s)"), ("weeks", "Week(s)"), ("months", "Month(s)")],
-=======
         [("days", "Days"), ("weeks", "Weeks"), ("months", "Months")],
->>>>>>> [ADD] automation_oca
         string="Due type",
         default="days",
         compute="_compute_activity_info",
@@ -280,23 +264,12 @@ class AutomationConfigurationStep(models.Model):
     )
     def _compute_applied_domain(self):
         for record in self:
-<<<<<<< HEAD
-            eval_context = record.configuration_id._get_eval_context()
-            record.applied_domain = expression.AND(
-                [
-                    safe_eval(record.domain, eval_context),
-                    safe_eval(
-                        (record.parent_id and record.parent_id.applied_domain)
-                        or record.configuration_id.domain,
-                        eval_context,
-=======
             record.applied_domain = expression.AND(
                 [
                     safe_eval(record.domain),
                     safe_eval(
                         (record.parent_id and record.parent_id.applied_domain)
                         or record.configuration_id.domain
->>>>>>> [ADD] automation_oca
                     ),
                 ]
             )
@@ -311,7 +284,8 @@ class AutomationConfigurationStep(models.Model):
     @api.model
     def _trigger_types(self):
         """
-        This function will return a dictionary that map trigger_types to its configurations.
+        This function will return a dictionary that map
+        trigger_types to its configurations.
         Each trigger_type can contain:
         - name (Required field)
         - step type: List of step types that succeed after this.

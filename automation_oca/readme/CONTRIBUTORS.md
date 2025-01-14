@@ -1,1 +1,2 @@
 - Enric Tobella ([Dixmit](https://www.dixmit.com/))
+- Manuel Vinent ([Binhex](https://www.binhex.cloud/))
