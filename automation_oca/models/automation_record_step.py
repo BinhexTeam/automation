@@ -123,10 +123,14 @@ class AutomationRecordStep(models.Model):
         if (
             self.record_id.resource_ref is None
             or not self.record_id.resource_ref.filtered_domain(
+<<<<<<< HEAD
                 safe_eval(
                     self.configuration_step_id.applied_domain,
                     self.configuration_step_id.configuration_id._get_eval_context(),
                 )
+=======
+                safe_eval(self.configuration_step_id.applied_domain)
+>>>>>>> [ADD] automation_oca
             )
             or not self._check_to_execute()
         ):
@@ -160,7 +164,11 @@ class AutomationRecordStep(models.Model):
                     self.record_id.resource_ref,
                     parent_id=self.id,
                     record_id=self.record_id.id,
+<<<<<<< HEAD
                     **kwargs,
+=======
+                    **kwargs
+>>>>>>> [ADD] automation_oca
                 )
                 for activity in self.configuration_step_id.child_ids
             ]

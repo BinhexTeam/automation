@@ -5,6 +5,10 @@ from odoo import api, models, tools
 
 
 class MailThread(models.AbstractModel):
+<<<<<<< HEAD
+=======
+
+>>>>>>> [ADD] automation_oca
     _inherit = "mail.thread"
 
     @api.model

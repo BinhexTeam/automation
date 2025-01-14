@@ -5,6 +5,10 @@ from odoo import fields, models
 
 
 class MailComposeMessage(models.TransientModel):
+<<<<<<< HEAD
+=======
+
+>>>>>>> [ADD] automation_oca
     _inherit = "mail.compose.message"
 
     automation_record_step_id = fields.Many2one("automation.record.step")

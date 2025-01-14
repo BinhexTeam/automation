@@ -5,6 +5,7 @@ from collections import defaultdict
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
+<<<<<<< HEAD
 from odoo.tools.safe_eval import (
     datetime as safe_datetime,
 )
@@ -20,6 +21,13 @@ from odoo.tools.safe_eval import (
 
 
 class AutomationConfiguration(models.Model):
+=======
+from odoo.tools.safe_eval import safe_eval
+
+
+class AutomationConfiguration(models.Model):
+
+>>>>>>> [ADD] automation_oca
     _name = "automation.configuration"
     _description = "Automation Configuration"
     _inherit = ["mail.thread"]
@@ -29,6 +37,7 @@ class AutomationConfiguration(models.Model):
     tag_ids = fields.Many2many("automation.tag")
     company_id = fields.Many2one("res.company")
     domain = fields.Char(
+<<<<<<< HEAD
         required=True,
         default="[]",
         compute="_compute_domain",
@@ -52,6 +61,11 @@ class AutomationConfiguration(models.Model):
          * user
          * ref """,
     )
+=======
+        required=True, default="[]", help="Filter to apply", compute="_compute_domain"
+    )
+    editable_domain = fields.Char(required=True, default="[]", help="Filter to apply")
+>>>>>>> [ADD] automation_oca
     model_id = fields.Many2one(
         "ir.model",
         domain=[("is_mail_thread", "=", True)],
@@ -214,6 +228,7 @@ class AutomationConfiguration(models.Model):
         for record in self.search([("state", "=", "periodic")]):
             record.run_automation()
 
+<<<<<<< HEAD
     def _get_eval_context(self):
         """Prepare the context used when evaluating python code
         :returns: dict -- evaluation context given to safe_eval
@@ -226,6 +241,8 @@ class AutomationConfiguration(models.Model):
             "dateutil": safe_dateutil,
         }
 
+=======
+>>>>>>> [ADD] automation_oca
     def _get_automation_records_to_create(self):
         """
         We will find all the records that fulfill the domain but don't have a record created.
@@ -233,8 +250,12 @@ class AutomationConfiguration(models.Model):
 
         In order to do this, we will add some extra joins on the query of the domain
         """
+<<<<<<< HEAD
         eval_context = self._get_eval_context()
         domain = safe_eval(self.domain, eval_context)
+=======
+        domain = safe_eval(self.domain)
+>>>>>>> [ADD] automation_oca
         Record = self.env[self.model_id.model]
         if self.company_id and "company_id" in Record._fields:
             # In case of company defined, we add only if the records have company field
@@ -250,7 +271,11 @@ class AutomationConfiguration(models.Model):
             "({rhs}.is_test IS NULL OR NOT {rhs}.is_test)",
             (Record._name, self.id),
         )
+<<<<<<< HEAD
         query.add_where(f"{alias}.id is NULL")
+=======
+        query.add_where("{}.id is NULL".format(alias))
+>>>>>>> [ADD] automation_oca
         if self.field_id:
             # In case of unicity field defined, we need to add this
             # left join to find already created records
@@ -271,7 +296,11 @@ class AutomationConfiguration(models.Model):
                 "({rhs}.is_test IS NULL OR NOT {rhs}.is_test)",
                 (Record._name, self.id),
             )
+<<<<<<< HEAD
             query.add_where(f"{alias2}.id is NULL")
+=======
+            query.add_where("{}.id is NULL".format(alias2))
+>>>>>>> [ADD] automation_oca
             from_clause, where_clause, params = query.get_sql()
             # We also need to find with a group by in order to avoid duplication
             # when we have both records created between two executions

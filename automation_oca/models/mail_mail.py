@@ -10,6 +10,10 @@ from odoo import api, fields, models, tools
 
 
 class MailMail(models.Model):
+<<<<<<< HEAD
+=======
+
+>>>>>>> [ADD] automation_oca
     _inherit = "mail.mail"
 
     automation_record_step_id = fields.Many2one("automation.record.step")

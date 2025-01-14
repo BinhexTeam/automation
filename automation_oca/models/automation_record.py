@@ -10,6 +10,10 @@ _logger = logging.getLogger(__name__)
 
 
 class AutomationRecord(models.Model):
+<<<<<<< HEAD
+=======
+
+>>>>>>> [ADD] automation_oca
     _name = "automation.record"
     _description = "Automation Record"
 

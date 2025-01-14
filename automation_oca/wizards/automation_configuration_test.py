@@ -5,6 +5,10 @@ from odoo import api, fields, models
 
 
 class AutomationConfigurationTest(models.TransientModel):
+<<<<<<< HEAD
+=======
+
+>>>>>>> [ADD] automation_oca
     _name = "automation.configuration.test"
     _description = "Test automation configuration"
 
