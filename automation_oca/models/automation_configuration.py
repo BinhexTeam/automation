@@ -5,18 +5,7 @@ from collections import defaultdict
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.tools.safe_eval import (
-    datetime as safe_datetime,
-)
-from odoo.tools.safe_eval import (
-    dateutil as safe_dateutil,
-)
-from odoo.tools.safe_eval import (
-    safe_eval,
-)
-from odoo.tools.safe_eval import (
-    time as safe_time,
-)
+from odoo.tools.safe_eval import datetime, dateutil, safe_eval, time
 
 
 class AutomationConfiguration(models.Model):
@@ -221,14 +210,15 @@ class AutomationConfiguration(models.Model):
         return {
             "ref": self.env.ref,
             "user": self.env.user,
-            "time": safe_time,
-            "datetime": safe_datetime,
-            "dateutil": safe_dateutil,
+            "time": time,
+            "datetime": datetime,
+            "dateutil": dateutil,
         }
 
     def _get_automation_records_to_create(self):
         """
-        We will find all the records that fulfill the domain but don't have a record created.
+        We will find all the records that fulfill
+        the domain but don't have a record created.
         Also, we need to check by autencity field if defined.
 
         In order to do this, we will add some extra joins on the query of the domain
@@ -241,21 +231,18 @@ class AutomationConfiguration(models.Model):
             domain += [("company_id", "=", self.company_id.id)]
         query = Record._where_calc(domain)
         alias = query.left_join(
-            query._tables[Record._table],
+            Record._table,
             "id",
             "automation_record",
             "res_id",
             "automation_record",
-            "{rhs}.model = %s AND {rhs}.configuration_id = %s AND "
-            "({rhs}.is_test IS NULL OR NOT {rhs}.is_test)",
-            (Record._name, self.id),
         )
         query.add_where(f"{alias}.id is NULL")
         if self.field_id:
             # In case of unicity field defined, we need to add this
             # left join to find already created records
             linked_tab = query.left_join(
-                query._tables[Record._table],
+                Record._table,
                 self.field_id.name,
                 Record._table,
                 self.field_id.name,
@@ -267,9 +254,6 @@ class AutomationConfiguration(models.Model):
                 "automation_record",
                 "res_id",
                 "automation_record_linked",
-                "{rhs}.model = %s AND {rhs}.configuration_id = %s AND "
-                "({rhs}.is_test IS NULL OR NOT {rhs}.is_test)",
-                (Record._name, self.id),
             )
             query.add_where(f"{alias2}.id is NULL")
             from_clause, where_clause, params = query.get_sql()
@@ -280,10 +264,10 @@ class AutomationConfiguration(models.Model):
                 ", ".join([f'MIN("{next(iter(query._tables))}".id) as id']),
                 from_clause,
                 where_clause or "TRUE",
-                (" ORDER BY %s" % self.order) if query.order else "",
-                (" LIMIT %d" % self.limit) if query.limit else "",
-                (" OFFSET %d" % self.offset) if query.offset else "",
-                "%s.%s" % (query._tables[Record._table], self.field_id.name),
+                (f" ORDER BY {self.order}") if query.order else "",
+                (f" LIMIT {self.limit}") if query.limit else "",
+                (f" OFFSET {self.offset}") if query.offset else "",
+                f"{Record._table}.{self.field_id.name}",
             )
         else:
             query_str, params = query.select()
